@@ -25,3 +25,8 @@ determine which color group matches the pixel closest.
 Once it finds the closest match, it replaces the pixel RGB values with the closest match RGB values.
 
 There are about 30 - 40 color groups. So you will have only 30 to 40 pixels values to work with! instead of 100s of pixel values!
+
+
+
+Unfortunately, there is a serious bug in correctly replacing with the closest match color group pixels.
+I am going to work on it when I get a change in about a week.
