@@ -37,8 +37,6 @@ def putIntoColorGroup(image_pixel):
             color_group_green = int(color_group_green)
             color_group_blue = int(color_group_blue)
             
-            
-            
             image_red, image_green, image_blue = image_pixel
             
             red_difference = abs(image_red - color_group_red)
@@ -54,28 +52,13 @@ def putIntoColorGroup(image_pixel):
             #populating all color group name and values
             color_group_dict[match_color_name] = [color_group_red, color_group_green, color_group_blue]
 
-
-
-
             difference_dict[match_color_name] = total_difference
-
-
 
     # key_min has the color group name that has the closest match for the image pixel
     key_min = min(difference_dict.keys(), key=(lambda k: difference_dict[k]))  
 
-    # is this how list values are returned? 
     return color_group_dict[key_min]
-     
-     
     file.close()    
-
-
-
-
-
-
-
 
 
 debug = False
