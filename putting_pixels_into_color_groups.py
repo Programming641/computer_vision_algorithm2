@@ -5,9 +5,6 @@ import re
 
 import os
 
-if os.path.exists("minimumValues.txt"):
-    os.remove("minimumValues.txt")
-
 global im
 im = Image.open("./child on bars Copy.jpg")
 original_pixel = im.getdata()
@@ -16,7 +13,7 @@ image_size = im.size
 
 def putIntoColorGroup(image_pixel):
 
-    file = open("C:\\Users\Taichi\Documents\data\list of colors.txt")
+    file = open("list of colors.txt")
 
     lines = file.readlines()
 
