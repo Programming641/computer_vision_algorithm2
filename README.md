@@ -27,5 +27,3 @@ Once it finds the closest match, it replaces the pixel RGB values with the close
 There are about 30 - 40 color groups. So you will have only 30 to 40 pixels values to work with! instead of 100s of pixel values!
 
 
-
-Bug is now fixed!
