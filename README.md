@@ -29,6 +29,7 @@ There are about 30 - 40 color groups. So you will have only 30 to 40 pixels valu
 
 
 ----------------------   WARNING   -----------------------
+
 there is a bug in getting the closest values of color group.
 I will fix this when I get a chance.
 
