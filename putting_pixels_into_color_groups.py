@@ -6,10 +6,11 @@ import re
 import os
 
 global im
-im = Image.open("./child on bars Copy.jpg")
+im = Image.open("./child on bars - コピー.jpg")
 original_pixel = im.getdata()
 image_size = im.size
 
+image_pixels = Image.new("RGB", im.size)
 
 def putIntoColorGroup(image_pixel):
 
@@ -37,6 +38,8 @@ def putIntoColorGroup(image_pixel):
             color_group_green = int(color_group_green)
             color_group_blue = int(color_group_blue)
             
+            
+            
             image_red, image_green, image_blue = image_pixel
             
             red_difference = abs(image_red - color_group_red)
@@ -52,13 +55,28 @@ def putIntoColorGroup(image_pixel):
             #populating all color group name and values
             color_group_dict[match_color_name] = [color_group_red, color_group_green, color_group_blue]
 
+
+
+
             difference_dict[match_color_name] = total_difference
 
-    # key_min has the color group name that has the closest match for the image pixel
-    key_min = min(difference_dict.keys(), key=(lambda k: difference_dict[k]))  
 
+
+    # key_min has the color group name that has the closest match for the image pixel
+    key_min = min(difference_dict, key=difference_dict.get)
+
+    # is this how list values are returned? 
     return color_group_dict[key_min]
+     
+     
     file.close()    
+
+
+
+
+
+
+
 
 
 debug = False
@@ -76,7 +94,7 @@ for x in range(image_size[0]):
         red, green, blue = putIntoColorGroup(original_pixel[new_x])
 
         
-        im.putpixel((x, y),(red,green,blue))
+        image_pixels.putpixel((x, y),(int(red),int(green),int(blue)))
         
         if debug == True:
            break
@@ -86,14 +104,6 @@ for x in range(image_size[0]):
 
 
 
-
-
-
-
-
-
-
-
-
+image_pixels.save("child on bars - コピーcolor_groups.jpg")
 
 
