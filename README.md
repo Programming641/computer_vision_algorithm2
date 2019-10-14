@@ -25,14 +25,3 @@ determine which color group matches the pixel closest.
 Once it finds the closest match, it replaces the pixel RGB values with the closest match RGB values.
 
 There are about 30 - 40 color groups. So you will have only 30 to 40 pixels values to work with! instead of 100s of pixel values!
-
-
-
-----------------------   WARNING   -----------------------
-
-there is a bug in getting the closest values of color group.
-I will fix this when I get a chance.
-
-I am suspecting the code below is the culprit. I did not really check what this code does. I just found it from the internet and just used it without actually investigating what this code does.
-
-    key_min = min(difference_dict.keys(), key=(lambda k: difference_dict[k]))  
