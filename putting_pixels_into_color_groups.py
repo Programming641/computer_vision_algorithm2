@@ -5,11 +5,8 @@ import re
 
 import os
 
-if os.path.exists("minimumValues.txt"):
-    os.remove("minimumValues.txt")
-
 global im
-im = Image.open("child on bars - コピー.jpg")
+im = Image.open("city-life cut.png")
 original_pixel = im.getdata()
 image_size = im.size
 
@@ -42,7 +39,7 @@ def get_closest_color(image_pixel):
             
             
             
-            image_red, image_green, image_blue = image_pixel
+            image_red, image_green, image_blue, alpha = image_pixel
             
             red_difference = abs(image_red - color_group_red)
             green_difference = abs(image_green - color_group_green)
@@ -109,7 +106,7 @@ for y in range(image_size[1]):
 
 
 print(image_size[1])
-im.save("child on bars - コピー.jpg")
+im.save("city-life cutcolorgroup.png")
 
 
 
