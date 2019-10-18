@@ -115,4 +115,3 @@ im.save("city-life cutcolorgroup.png")
 
 
 
-
