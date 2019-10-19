@@ -1,9 +1,13 @@
-
+#
+# algorithm for determining the closest match with the color group uses how far away the RGB value is from original
+#
+#
 
 from PIL import Image
 import re
 
 import os
+
 
 global im
 im = Image.open("city-life cut.png")
@@ -13,7 +17,7 @@ image_size = im.size
 
 def get_closest_color(image_pixel):
 
-    file = open("list of colors.txt")
+    file = open("list of colors2.txt")
 
     lines = file.readlines()
 
@@ -26,53 +30,67 @@ def get_closest_color(image_pixel):
     difference_dict = {}
 
     for line in lines: 
-        if 'rgb(' in line:
 
-            pattern_color_Number = "[0-9]{1,3}"
-            match_color_Number = re.findall(pattern_color_Number, line[line.find("rgb(") + 4:])
 
-            color_group_red, color_group_green, color_group_blue = match_color_Number
+       # first # then 6 alphanumerics. tab or space repeats 1 - 5 times. number repeats 1-3 times. tab or space 1-5 times ...
+       tem_pattern = '#[a-zA-Z0-9]{6}\s{1,5}[0-9]{1,3}\s{1,5}[0-9]{1,3}\s{1,5}[0-9]{1,3}'
+       temp_match = re.search( tem_pattern , line)
+       
+       if temp_match != None:
+          
+          hex_pattern = '#[a-zA-Z0-9]{6}'
+          hex_Num = re.search( hex_pattern , temp_match.group())
 
-            color_group_red = int(color_group_red)
-            color_group_green = int(color_group_green)
-            color_group_blue = int(color_group_blue)
+          # remove hexedecimal number for extracting the RGB values
+          hex_first_index = temp_match.group().find('#')
+          # hex numbers consist of 7 characters including #
+          hex_removed = temp_match.group()[ hex_first_index + 7 : ]
+
+          RGB_pattern = '[0-9]{1,3}'
+          RGB_color_group = re.findall( RGB_pattern, hex_removed )
+          
+          red_color_group, green_color_group, blue_color_group = RGB_color_group
+
+          red_color_group = int(red_color_group)
+          green_color_group = int(green_color_group)
+          blue_color_group = int(blue_color_group)
             
+          image_red, image_green, image_blue, alpha = image_pixel
             
+          red_difference = abs(image_red - red_color_group)
+          green_difference = abs(image_green - green_color_group)
+          blue_difference = abs(image_blue - blue_color_group)
             
-            image_red, image_green, image_blue, alpha = image_pixel
-            
-            red_difference = abs(image_red - color_group_red)
-            green_difference = abs(image_green - color_group_green)
-            blue_difference = abs(image_blue - color_group_blue)
-            
+          total_difference = red_difference + green_difference + blue_difference
 
-            total_difference = red_difference + green_difference + blue_difference
+          average = total_difference / 3
 
-            pattern_color_name = "[a-z]+[^rgb\(]"
-            match_color_name = re.search(pattern_color_name, line).group(0)
+          # exclude 0 or negatie values because 0 or negative values mean that difference is smaller than average.
+          red_how_far = exclude_negative_Num( red_difference - average )
+          green_how_far = exclude_negative_Num( green_difference - average )
+          blue_how_far = exclude_negative_Num( blue_difference - average )
 
-            #populating all color group name and values
-            color_group_dict[match_color_name] = [color_group_red, color_group_green, color_group_blue]
+          total_appearance_difference = total_difference + red_how_far * 1.3 + green_how_far * 1.3 + blue_how_far * 1.3
 
+          #populating all color group hex number and values
+          color_group_dict[hex_Num] = [red_color_group, green_color_group, blue_color_group]
 
+          difference_dict[hex_Num] = total_appearance_difference
 
-
-            difference_dict[match_color_name] = total_difference
-
-
-
-    # key_min has the color group name that has the closest match for the image pixel
+    # key_min has the color group hex number that has the closest match for the image pixel
     key_min = min(difference_dict, key=difference_dict.get)
 
-    # is this how list values are returned? 
     return color_group_dict[key_min]
-     
-     
+        
     file.close()    
 
 
+def exclude_negative_Num(num):
 
-
+    if num > 0:
+       return num
+    else:
+       return 0
 
 
 
@@ -106,12 +124,5 @@ for y in range(image_size[1]):
 
 
 print(image_size[1])
-im.save("city-life cutcolorgroup.png")
-
-
-
-
-
-
-
+im.save("city-life cut color group.png")
 
