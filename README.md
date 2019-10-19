@@ -24,7 +24,7 @@ determine which color group matches the pixel closest.
 
 Once it finds the closest match, it replaces the pixel RGB values with the closest match RGB values.
 
-There are about 30 - 40 color groups. So you will have only 216 (web safe colors) pixels values to work with! instead of millions of pixel values!
+You will have only 216 (web safe colors) pixels values to work with! instead of millions of pixel values!
 
 
 Please note that JPG pictures do not work!!! Use PNG instead.
