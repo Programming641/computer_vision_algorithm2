@@ -110,7 +110,6 @@ for y in range(image_size[1]):
         # converting for the getdata(). y is the row that you want to get data for
         new_x = (y * image_size[0])+ x
 
-        # is this how you get return tuple/list values from function?
         red, green, blue = get_closest_color(original_pixel[new_x])
 
         
